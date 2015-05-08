@@ -1,11 +1,24 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Hello World!</title>
+    <title>Chuck Norris Joke App</title>
+    <link rel="stylesheet" type="text/css" href="main.css">
   </head>
   <body>
-    <h1>Hello World!</h1>
-    We are using io.js <script>document.write(process.version)</script>
-    and Electron <script>document.write(process.versions['electron'])</script>.
+    <h1>Chuck Norris Joke App</h1>
+    <h2 class="joke"></h2>
+    <button class="blue-button">Another One!</button>
+    <p class="footer">Using <a href="http://api.icndb.com/" target="_blank">ICNDB</a></p>
+    <script>
+      var ipc = require('ipc');
+
+      ipc.on('gotJoke', function(joke) {
+        document.querySelector(".joke").textContent = joke;
+      });
+
+      document.querySelector("button").addEventListener('click', function() {
+        ipc.send('new-joke-request');
+      });
+    </script>
   </body>
 </html>

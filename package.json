@@ -1,5 +1,42 @@
 {
   "name"    : "chuck-norris-jokes-app",
+  "productName": "ChuckNorrisJokes",
   "version" : "0.1.0",
+  "description": "Chuck Norris Jokes with a click",
+  "license": "MIT",
+  "author": {
+    "name": "Dinesh Vasudevan",
+    "email": "dineshvasudevan2003@yahoo.com",
+    "url": "http://dinks.github.io/"
+  },
+  "engines": {
+    "node": ">=0.10.0"
+  },
+  "engines": {
+    "node": ">=0.10.0"
+  },
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-packager . $npm_package_productName --prune --asar --ignore=node_modules/electron-prebuilt --ignore=node_modules/electron-packager --ignore=.git"
+  },
+  "keywords": [
+    "electron-app",
+    "chucknorris",
+    "jokes",
+    "build",
+    "tool",
+    "task",
+    "runner",
+    "app",
+    "ui",
+    "osx"
+  ],
+  "dependencies": {
+    "node-rest-client": "~1.5.1"
+  },
+  "devDependencies": {
+    "electron-packager": "^3.3.0",
+    "electron-prebuilt": "^0.25.2"
+  },
   "main"    : "main.js"
 }

@@ -1,5 +1,8 @@
 var app = require('app');  // Module to control application life.
 var BrowserWindow = require('browser-window');  // Module to create native browser window.
+var ipc = require('ipc'); // Communicate with the renderer
+
+var icndbApi = require('./icndb_api');
 
 // Report crashes to our server.
 require('crash-reporter').start();
@@ -14,14 +17,24 @@ app.on('window-all-closed', function() {
     app.quit();
 });
 
+var getNewJoke = function () {
+  icndbApi.getJoke(function (joke) {
+    if (mainWindow) {
+      mainWindow.webContents.send('gotJoke', joke);
+    }
+  });
+};
+
 // This method will be called when Electron has done everything
 // initialization and ready for creating browser windows.
 app.on('ready', function() {
   // Create the browser window.
-  mainWindow = new BrowserWindow({width: 800, height: 600});
+  mainWindow = new BrowserWindow({width: 400, height: 300});
 
   // and load the index.html of the app.
   mainWindow.loadUrl('file://' + __dirname + '/index.html');
+
+  getNewJoke();
 
   // Emitted when the window is closed.
   mainWindow.on('closed', function() {
@@ -31,3 +44,5 @@ app.on('ready', function() {
     mainWindow = null;
   });
 });
+
+ipc.on('new-joke-request', getNewJoke);
